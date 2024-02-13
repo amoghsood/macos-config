@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+
+#ls aliases#
+alias ls="gls --color=auto"
+alias la="ls -lah"
+# Colorize grep output (good for log files)
+#alias grep='grep --color=auto'
+#alias egrep='egrep --color=auto'
+#alias fgrep='fgrep --color=auto'
+alias grep='rg --color=auto'
+# confirm before overwriting something
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+alias vi='nvim'
+alias cat='bat'
+alias ds='eval cd "$(dirs -v | fzf --height=30% --cycle | awk '\''{print $NF}'\'')"'
+for index ({1..9}) alias "$index"="cd +${index}"; unset index
+alias diff='delta --features "$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo dark-mode || echo light-mode)"' 
+alias fzf="fzf --ansi"
+alias vmd="csh /Applications/VMD\ 1.9.4a57-arm64-Rev12.app/Contents/MacOS/startup.command.csh"

@@ -1,0 +1,339 @@
+# Designed for dircolors (GNU coreutils) 5.97
+#
+# How the colors were selected:
+# - Terminal emulators often have an option typically enabled by default that makes
+#   bold a different color.  It is important to leave this option enabled so that
+# - Largely Inspired by gruvbox
+# - We choose to have the following category of files:
+#   NORMAL & FILE, DIR, LINK, EXEC and
+#   editable text including source, unimportant text, binary docs & multimedia source
+#   files, viewable multimedia, archived/compressed, and unimportant non-text
+#   you know what the bg/fg colors of your terminal are, in order to optimize the display.
+#-  Files commonly used from the gui have no color. 
+
+# EXAMPLE STRINGS
+# the code 38;5;31;1 specifies a high-intensity red foreground color
+# the code 48;5;31;1 specifies a high-itensity red background color
+
+COLOR tty
+
+# Below, there should be one TERM entry for each termtype that is colorizable
+TERM alacritty
+TERM ansi
+TERM color_xterm
+TERM color-xterm
+TERM con132x25
+TERM con132x30
+TERM con132x43
+TERM con132x60
+TERM con80x25
+TERM con80x28
+TERM con80x30
+TERM con80x43
+TERM con80x50
+TERM con80x60
+TERM cons25
+TERM console
+TERM cygwin
+TERM dtterm
+TERM dvtm
+TERM dvtm-256color
+TERM Eterm
+TERM eterm-color
+TERM fbterm
+TERM gnome
+TERM gnome-256color
+TERM jfbterm
+TERM konsole
+TERM konsole-256color
+TERM kterm
+TERM linux
+TERM linux-c
+TERM mach-color
+TERM mlterm
+TERM nxterm
+TERM putty
+TERM putty-256color
+TERM rxvt
+TERM rxvt-256color
+TERM rxvt-cygwin
+TERM rxvt-cygwin-native
+TERM rxvt-unicode
+TERM rxvt-unicode256
+TERM rxvt-unicode-256color
+TERM screen
+TERM screen-16color
+TERM screen-16color-bce
+TERM screen-16color-s
+TERM screen-16color-bce-s
+TERM screen-256color
+TERM screen-256color-bce
+TERM screen-256color-s
+TERM screen-256color-bce-s
+TERM screen-256color-italic
+TERM screen-bce
+TERM screen-w
+TERM screen.linux
+TERM screen.xterm-256color
+TERM screen.xterm-new
+TERM st
+TERM st-meta
+TERM st-256color
+TERM st-meta-256color
+TERM tmux
+TERM tmux-256color
+TERM vt100
+TERM xterm
+TERM xterm-new
+TERM xterm-16color
+TERM xterm-256color
+TERM xterm-256color-italic
+TERM xterm-88color
+TERM xterm-color
+TERM xterm-debian
+TERM xterm-kitty
+TERM xterm-termite
+
+# EIGHTBIT, followed by '1' for on, '0' for off. (8-bit output)
+EIGHTBIT 0
+
+#############################################################################
+# Below are the color init strings for the basic file types. A color init
+# string consists of one or more of the following numeric codes:
+#
+# Attribute codes:
+#   00=none 01=bold 04=underscore 05=blink 07=reverse 08=concealed
+# Text color codes:
+#   30=black 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 37=white
+# Background color codes:
+#   40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
+#
+# NOTES:
+# - See http://www.oreilly.com/catalog/wdnut/excerpt/color_names.html
+# - Color combinations
+# 
+
+### By file type
+
+# global default
+NORMAL 00
+# normal file
+FILE 00
+# directory
+DIR 38;5;24;1 #blue12 gruvbox
+# 777 directory
+OTHER_WRITABLE 38;5;109;1 #blue12 gruvbox
+# symbolic link
+LINK 01;36 #bright cyan
+
+
+### By file attributes
+
+# Orphaned symlinks (blinking white on red)
+# Blink may or may not work (works on iTerm dark or light, and Putty dark)
+ORPHAN  05;37;41
+# ... and the files that orphaned symlinks point to (blinking white on red)
+MISSING 05;37;41
+
+# files with execute permission #red, bright
+EXEC 38;5;88;1  #gruxboxred9 # Unix
+.app 38;5;88;1  # OSX
+
+#############################################################################
+### By extension
+
+# List any file extensions like '.gz' or '.tar' that you would like ls
+# to colorize below. Put the extension, a space, and the color init string.
+# (and any comments you want to add after a '#')
+
+### Text formats
+
+# Text that we can edit with a regular editor
+.txt 38;5;100;1
+.org 38;5;100;1
+.md  38;5;100;1
+.mkd 38;5;100;1
+.csv 38;5;100;1
+.out 38;5;100;1
+.log 38;5;100;1
+# Source text
+.h 38;5;208
+.hpp 38;5;208
+.c 38;5;208
+.C 38;5;208
+.cc 38;5;208
+.cpp 38;5;208
+.cxx 38;5;208
+.objc 38;5;208
+.cl 38;5;208
+.sh 38;5;208
+.bash 38;5;208
+.csh 38;5;208
+.zsh 38;5;208
+.el 38;5;208
+.vim 38;5;208
+.java 38;5;208
+.pl 38;5;208
+.pm 38;5;208
+.py 38;5;208
+.pyx 38;5;208
+.rb 38;5;208
+.hs 38;5;208
+.php 38;5;208
+.htm 38;5;208
+.html 38;5;208
+.shtml 38;5;208
+.erb 38;5;208
+.haml 38;5;208
+.xml 38;5;208
+.rdf 38;5;208
+.css 38;5;208
+.sass 38;5;208
+.scss 38;5;208
+.less 38;5;208
+.js 38;5;208
+.coffee 38;5;208
+.man 38;5;208
+.tex 38;5;208
+.go 38;5;208
+.sql 38;5;208
+
+## Interactive Code and Notebooks ##
+
+.ipynb 38;5;132
+.nb 38;5;132
+## Archives ##
+# Archives, compressed
+.7z   38;5;66
+.apk  138;5;66
+.arj  138;5;66
+.bin  138;5;66
+.bz   138;5;66
+.bz2  138;5;66
+.cab  138;5;66  # Win
+.deb  138;5;66
+.dmg  138;5;66  # OSX
+.gem  138;5;66
+.gz   138;5;66
+.iso  138;5;66
+.jar  138;5;66
+.msi  138;5;66  # Win
+.rar  138;5;66
+.rpm  138;5;66
+.tar  138;5;66
+.tbz  138;5;66
+.tbz2 138;5;66
+.tgz  138;5;66
+.tx   138;5;66
+.war  138;5;66
+.xpi  138;5;66
+.xz   138;5;66
+.z    138;5;66
+.Z    138;5;66
+.zip  138;5;66
+.zst  138;5;66
+### Multimedia formats
+### Accessed through gui, No color needed
+# Image
+.bmp 00
+.cgm 00
+.dl 00
+.dvi 00
+.emf 00
+.eps 00
+.gif 00
+.jpeg 00
+.jpg 00
+.JPG 00
+.mng 00
+.pbm 00
+.pcx 00
+.pdf 00
+.pgm 00
+.png 00
+.PNG 00
+.ppm 00
+.pps 00
+.ppsx 00
+.ps 00
+.svg 00
+.svgz 00
+.tga 00
+.tif 00
+.tiff 00
+.xbm 00
+.xcf 00
+.xpm 00
+.xwd 00
+.xwd 00
+.yuv 00
+.nef 00 # Nikon RAW format
+.NEF 00
+
+# Audio
+.aac 00
+.au  00
+.flac 00
+.m4a 00
+.mid 00
+.midi 00
+.mka 00
+.mp3 00
+.mpa 00
+.mpeg 00
+.mpg 00
+.ogg  00
+.opus 00
+.ra 00
+.wav 00
+
+# Video
+.anx 00
+.asf 00
+.avi 00
+.axv 00
+.flc 00
+.fli 00
+.flv 00
+.gl 00
+.m2v 00
+.m4v 00
+.mkv 00
+.mov 00
+.MOV 00
+.mp4 00
+.mp4v 00
+.mpeg 00
+.mpg 00
+.nuv 00
+.ogm 00
+.ogv 00
+.ogx 00
+.qt 00
+.rm 00
+.rmvb 00
+.swf 00
+.vob 00
+.webm 00
+.wmv 00
+
+### Misc
+
+# Binary document formats and multimedia source
+.doc 00
+.docx 00
+.rtf 00
+.odt 00
+.dot 00
+.dotx 00
+.ott 00
+.xls 00
+.xlsx 00
+.ods 00
+.ots 00
+.ppt 00
+.pptx 00
+.odp 00
+.otp 00
+.fla 00
+.psd 00

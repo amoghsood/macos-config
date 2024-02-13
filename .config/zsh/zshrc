@@ -1,0 +1,113 @@
+#!/usr/bin/env zsh
+zmodload zsh/zprof
+export HISTSIZE=10000                   # Maximum events for internal history
+export SAVEHIST=10000                   # Maximum events in history file
+source "$HOME/.config/zsh/zsh_aliases"
+source "$HOME/.config/zsh/zsh_functions"
+source "$HOME/.config/zsh/cursor_mode"
+
+precmd_functions=()
+## COLORS ##
+if [ "$TERM" = "xterm" ]; then
+  export TERM=xterm-256color
+fi
+
+export CLICOLOR=1
+precmd_functions=()
+# Set the color scheme when the shell starts
+set_color_scheme
+
+# Set the color scheme again before each command is executed
+precmd_functions+=(set_color_scheme)
+
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+zstyle ':completion:*' menu yes select
+autoload -Uz compinit
+zmodload -i zsh/complist
+compinit
+_comp_options+=(globdots)
+
+#  Vim-like behaviors
+#enable vim mode
+bindkey -v
+bindkey "^H" backward-delete-char
+bindkey "^?" backward-delete-char
+
+# Text objects
+autoload -Uz select-bracketed select-quoted
+zle -N select-quoted
+zle -N select-bracketed
+for km in viopp visual; do
+  bindkey -M $km -- '-' vi-up-line-or-history
+  for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
+    bindkey -M $km $c select-quoted
+  done
+  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+    bindkey -M $km $c select-bracketed
+  done
+done
+
+bindkey -M menuselect '^[' undo 
+export KEYTIMEOUT=1
+
+# some useful options (man zshoptions)
+#navigation, conveniences including custom functions#
+setopt autocd extendedglob nomatch menucomplete
+setopt interactive_comments correct
+source "$HOME/.config/zsh/tmb"
+#history#
+setopt extended_history
+setopt share_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_ignore_all_dups
+setopt hist_find_no_dups
+setopt hist_ignore_space
+setopt hist_save_no_dups
+setopt hist_verify
+##directory stack##
+setopt AUTO_PUSHD           # Push the current directory visited on the stack.
+setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
+setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
+
+#misc#
+stty stop undef		# Disable ctrl-s to freeze terminal.
+zle_highlight=('paste:none')
+
+# beeping is annoying
+unsetopt BEEP
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/username/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/username/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/Users/username/miniforge3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/username/miniforge3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+source $HOME/.config/zsh/customLRPROMPTv2_async.zsh
+source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+#export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/opt/homebrew/share/zsh-syntax-highlighting/highlighters
+#source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+#FZF GOODNES!
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#search for files
+export FZF_DEFAULT_COMMAND='fd --type f --exclude .git --color=always --hidden' 
+#gruvbox color
+
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="--preview-window=wrap, --height=100% --ansi --preview 'bat --style numbers,changes --color=always --line-range :500 {}'"
+#search for dirs
+export FZF_ALT_C_COMMAND='fd --type d . --exclude .git --color=always --hidden'
+export FZF_ALT_C_OPTS="--height=100% --ansi --preview 'tree -C {} | head -50'"
+export FZF_DEFAULT_OPTS='--color="bg+:-1,fg+:-1"' 

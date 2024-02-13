@@ -1,0 +1,55 @@
+#!/bin/zsh
+
+tmb() {
+    target_parent=$1
+
+    # Check if the input is a valid integer
+    if [[ $target_parent =~ '^[0-9]+$' ]]; then
+        levels_up=$target_parent
+        current_dir=$(pwd)
+        dir_components=(${(s:/:)current_dir})
+
+        # Check if the number of levels to go up is within the directory hierarchy
+        if (( levels_up <= ${#dir_components} - 1 )); then
+            new_path=$(echo ${(j:/:)dir_components[1,-(levels_up + 1)]})
+            cd "/$new_path"
+        else
+            echo "Error: Cannot go up $levels_up levels. Maximum levels possible to go up: $((${#dir_components} - 1))."
+        fi
+    else
+        # Original functionality for navigating to a specified parent directory
+        current_dir=$(pwd)
+        dir_components=(${(s:/:)current_dir})
+
+        # Iterate through the components, starting from the end
+        for ((i=${#dir_components}; i>=1; i--)); do
+            if [[ $dir_components[i] == $target_parent ]]; then
+                # Concatenate the components to create the new path
+                new_path=$(echo ${(j:/:)dir_components[1,i]})
+                cd "/$new_path"
+                return
+            fi
+        done
+
+        # If the target parent directory is not found
+        echo "Error: Target parent directory not found."
+    fi
+}
+# Completion script for tmb function
+
+# Completion script for tmb function
+_tmb() {
+    local -a dir_list
+    local current_path=$(pwd)
+
+    dir_list=(${(s:/:)current_path})
+    dir_list=("${dir_list[@]:1}")
+    _wanted directories expl 'parent directories' compadd -a dir_list
+}
+
+# Load the compinit and the path_files completion function
+autoload -Uz compinit _path_files
+compinit
+
+# Register the completion function for tmb
+compdef _tmb tmb

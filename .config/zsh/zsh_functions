@@ -1,0 +1,113 @@
+#!/usr/bin/env zsh
+###CONVENIENCE FUNCTIONS FOR CLUSTER###
+function supercloud(){
+        #ssh user@host
+}
+
+function eofe(){
+        #ssh-add path && ssh key
+}
+
+function eofetun() {
+    #local nodename=$1
+    #local port=$2
+    local port=""
+    local nodename=""
+    
+    while getopts ":p:n:" opt; do
+        case $opt in
+            p) port=$OPTARG ;;
+            n) nodename=$OPTARG ;;
+            *) return 1 ;;
+        esac
+    done  
+    #ssh -t -t user@host -L "${port}:localhost:${port}" ssh "${nodename}" -L "${port}:localhost:${port}"
+}
+function suptun(){
+  #local nodename=$1 
+  #local port=$2
+  local port=""
+  local nodename=""
+    
+    while getopts ":p:n:" opt; do
+        case $opt in
+            p) port=$OPTARG ;;
+            n) nodename=$OPTARG ;;
+            *) return 1 ;;
+        esac
+    done 
+  #ssh -t -t user@host -L  "${port}:localhost:${port}" ssh "${nodename}" -L "${port}:localhost:${port}"
+}
+
+
+###CONVENIENCE FUNCTIONS FOR ENVIRONMENTS###
+# Create x86 conda environment
+create_x86_conda () {
+# example usage: create_x86_conda_environment myenv_x86 python=3.9
+ CONDA_SUBDIR=osx-64 conda create -n $@
+ conda activate $1
+}
+# Create ARM conda environment
+create_arm_conda () {
+# example usage: create_ARM_conda_environment myenv_x86 python=3.9
+ CONDA_SUBDIR=osx-arm64 conda create -n $@
+ conda activate $1
+}
+###FUNCTION TO SET COLORSCH BASED ON OS DARK/LIGHT MODES###
+set_color_scheme() {
+  apple_interface_style=$(defaults read -g AppleInterfaceStyle 2>/dev/null)
+  if [[ $apple_interface_style == "Dark"  ]]; then
+    # Dark mode is enabled
+    # Set your preferred dark mode color scheme here
+    # Example:
+    eval "$(gdircolors -b ~/.dircolors/gruvboxdark.dircolors)"
+    export BAT_THEME='gruvbox-dark'
+    #source custom_prompt
+  fi
+  if [[ -z $apple_interface_style ]]; then
+    # Light mode is enabled
+    # Set your preferred light mode color scheme here
+    # Example:
+    eval "$(gdircolors -b ~/.dircolors/gruvboxlight.dircolors)"
+    export BAT_THEME='gruvbox-light'
+    #source custom_prompt
+  fi
+}
+
+##NAVAIDS##
+
+function mkcd() {
+    local dir="${@: -1}" # Get the last argument as the directory name
+    if [ -z "$dir" ]; then
+        echo "Error: no directory name specified"
+        return 1
+    fi
+    if [ -d "$dir" ]; then
+        cd "$dir" || return 1
+    else
+        mkdir -p "$dir" && cd "$dir" || return 1
+    fi
+}
+
+
+# Define the tmb function
+#source tmb
+#tmb() {
+#    target_parent=$1
+#    current_dir=$(pwd)
+#    dir_components=(${(s:/:)current_dir})
+#    # Iterate through the components, starting from the end
+#    for ((i=${#dir_components}; i>=1; i--)); do
+#        if [[ $dir_components[i] == $target_parent ]]; then
+#            # Concatenate the components to create the new path
+#            new_path=$(echo ${(j:/:)dir_components[1,i]})
+#	    #echo $new_path
+#            cd //$new_path
+#            return
+#        fi
+#    done
+#
+#    # If the target parent directory is not found
+#    echo "Error: Target parent directory not found."
+#}
+

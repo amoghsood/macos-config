@@ -1,0 +1,106 @@
+[user]
+	name = NAME NAME
+  email = EMAIL@EMAIL.COM
+[core]
+  pager = delta --features "$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo dark-mode || echo light-mode)"
+
+[interactive]
+    diffFilter = delta --color-only
+[delta "light-mode"]
+  light = true
+  syntax-theme = gruvbox-light
+  side-by-side = true
+  zero-style = syntax dim
+  #keep-plus-minus-markers = true
+  # File
+  file-style = normal bold
+  file-added-label = [+]
+  file-copied-label = [==]
+  file-modified-label = [*]
+  file-removed-label = [-]
+  file-renamed-label = [->]
+  file-decoration-style = "#434C5E" ul
+  file-decoration-style = "#84786A" ul
+  # No hunk headers
+  hunk-header-style = omit
+  # Line numbers
+  line-numbers = true
+  line-numbers-left-style = normal
+  line-numbers-right-style = normal
+  line-numbers-minus-style = red
+  line-numbers-plus-style = green
+  line-numbers-zero-style = normal
+  line-numbers-left-format = " {nm:>3} │"
+  line-numbers-right-format = " {np:>3} │"
+  # Diff contents
+  inline-hint-style = syntax
+  minus-style = syntax normal strike
+  minus-emph-style = red normal strike
+  minus-non-emph-style = syntax normal
+  plus-style = syntax normal 
+  plus-emph-style = green normal bold ul
+  plus-non-emph-style = syntax normal
+  whitespace-error-style = "#FB4934" reverse
+  # Commit hash
+  commit-decoration-style = normal box
+  commit-style = orange bold
+  # Blame
+  blame-code-style = syntax
+  blame-format = "{author:>18} ({commit:>8}) {timestamp:<13} "
+  blame-palette = "#ebdbb2" "#d5c4a1" "#bdae93" "#a89984"
+  # Merge conflicts
+  merge-conflict-begin-symbol = ⌃
+  merge-conflict-end-symbol = ⌄
+  merge-conflict-ours-diff-header-style = purple bold
+  merge-conflict-theirs-diff-header-style = purple bold overline
+  merge-conflict-ours-diff-header-decoration-style = ''
+  merge-conflict-theirs-diff-header-decoration-style = ''
+[delta "dark-mode"]
+  light = false
+  syntax-theme = gruvbox-dark
+  side-by-side = true
+  zero-style = syntax dim
+  ##keep-plus-minus-markers = true
+  # File
+  file-style = normal bold
+  file-added-label = [+]
+  file-copied-label = [==]
+  file-modified-label = [*]
+  file-removed-label = [-]
+  file-renamed-label = [->]
+  file-decoration-style = "#434C5E" ul
+  file-decoration-style = "#84786A" ul
+  # No hunk headers
+  hunk-header-style = omit
+  # Line numbers
+  line-numbers = true
+  line-numbers-left-style = normal
+  line-numbers-right-style = normal
+  line-numbers-minus-style = red
+  line-numbers-plus-style = green
+  line-numbers-zero-style = normal
+  line-numbers-left-format = " {nm:>3} │"
+  line-numbers-right-format = " {np:>3} │"
+  # Diff contents
+  inline-hint-style = syntax
+  minus-style = syntax normal strike
+  minus-emph-style = red normal strike
+  minus-non-emph-style = syntax normal
+  plus-style = syntax normal 
+  plus-emph-style = green normal bold ul
+  plus-non-emph-style = syntax normal
+  whitespace-error-style = "#FB4934" reverse
+  # Commit hash
+  commit-decoration-style = normal box
+  commit-style = orange bold
+  # Blame
+  blame-code-style = syntax
+  blame-format = "{author:>18} ({commit:>8}) {timestamp:<13} "
+  blame-palette = "#3c3836" "#504945" "#665c54" "#7c6fc4" 
+  # Merge conflicts
+  merge-conflict-begin-symbol = ⌃
+  merge-conflict-end-symbol = ⌄
+  merge-conflict-ours-diff-header-style = purple bold
+  merge-conflict-theirs-diff-header-style = purple bold overline
+  merge-conflict-ours-diff-header-decoration-style = ''
+  merge-conflict-theirs-diff-header-decoration-style = ''
